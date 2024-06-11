@@ -19,11 +19,11 @@ A web server (e.g., Apache, Nginx) to serve the HTML/JavaScript file.
 Steps
 Server-Side Setup:
 
-    Replace your_server_ip with the IP address of the server PC in the client-side script.
+Replace your_server_ip with the IP address of the server PC in the client-side script.
 Run the server-side Python script on the server PC with the camera.
 Client-Side Setup:
 
-S# erve the HTML/JavaScript file from any web server accessible to the client PC.
+# Serve the HTML/JavaScript file from any web server accessible to the client PC.
 Access the HTML file from a web browser on the client PC. You should see the camera feed from the server PC.
 
 # Credits
