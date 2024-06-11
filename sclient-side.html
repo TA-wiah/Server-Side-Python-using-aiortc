@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebRTC Client</title>
+</head>
+<body>
+    <video id="remoteVideo" autoplay></video>
+    <script>
+        let pc = new RTCPeerConnection();
+
+        pc.ontrack = function(event) {
+            let remoteVideo = document.getElementById('remoteVideo');
+            remoteVideo.srcObject = event.streams[0];
+        };
+
+        async function connect() {
+            let response = await fetch('http://your_server_ip:5000/offer');
+            let offer = await response.json();
+            
+            await pc.setRemoteDescription(new RTCSessionDescription(offer));
+            let answer = await pc.createAnswer();
+            await pc.setLocalDescription(answer);
+
+            await fetch('http://your_server_ip:5000/answer', {
+                method: 'POST',
+                body: JSON.stringify(pc.localDescription),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        connect();
+    </script>
+</body>
+</html>
