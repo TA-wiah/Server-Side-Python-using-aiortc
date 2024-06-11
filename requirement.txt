@@ -1,0 +1,6 @@
+argparse
+asyncio
+cv2
+numpy
+aiortc
+aiortc.contrib.media

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Viewer</title>
+</head>
+<body>
+    <video id="remoteVideo" autoplay></video>
+
+    <script>
+        var remoteVideo = document.getElementById('remoteVideo');
+        var pc = new RTCPeerConnection();
+
+        pc.ontrack = function(event) {
+            remoteVideo.srcObject = event.streams[0];
+        };
+
+        async function connect() {
+            var offer = await fetch('https://your_server_ip:4443').then(res => res.json());
+            await pc.setRemoteDescription(offer);
+            var answer = await pc.createAnswer();
+            await pc.setLocalDescription(answer);
+        }
+
+        connect();
+    </script>
+</body>
+</html>
